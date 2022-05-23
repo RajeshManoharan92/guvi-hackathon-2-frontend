@@ -247,7 +247,14 @@ label {
 }
 
 .cartHomeRP {
-  margin-left: 70%;
+  margin-left: 85%;
+  display: inline-block;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.cartHomeRPP {
+  margin-left: 75%;
   display: inline-block;
   margin-top: 2%;
   margin-bottom: 2%;

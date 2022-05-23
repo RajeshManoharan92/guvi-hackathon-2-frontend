@@ -62,7 +62,6 @@ function Login() {
   }
   return (
     <>
-
       {/* Top-Grid */}
 
       <Box sx={{ flexGrow: 1 }}>
@@ -146,12 +145,15 @@ function Enquirydetails() {
   // using useEffect hooks to load data on page load
 
   useEffect(
-    async () => {
-      var response = await axios.get('http://localhost:3000/product/getcontactusdetails')
-      setarray({ Product: response.data })
-      console.log(response.data)
+    () => {
+      result();
     }, [])
 
+  var result = async () => {
+    var response = await axios.get('http://localhost:3000/product/getcontactusdetails')
+    setarray({ Product: response.data })
+
+  }
 
   return (
     <>
@@ -218,22 +220,29 @@ function Razorpay() {
   // using useEffect to load data on page load
 
   useEffect(
-    async () => {
-      var response = await axios.get('http://localhost:3000/product/get')
-      setarray({ Product: response.data })
+    () => {
+      res();
 
     }, [])
+
+  var res = async () => {
+    var response = await axios.get('http://localhost:3000/product/get')
+    setarray({ Product: response.data })
+  }
 
   // using useEffect to ger product count on page load to store in cart button
 
   useEffect(
-    async () => {
-      var response = await axios.get('http://localhost:3000/product/gettotalproductcount')
-      var res = response.data.map((row) => {
-        setcartvalue(row.Totalcount)
-      })
-
+    () => {
+      productcount();
     }, [])
+
+  var productcount = async () => {
+    var response = await axios.get('http://localhost:3000/product/gettotalproductcount')
+    var res = response.data.map((row) => {
+      setcartvalue(row.Totalcount)
+    })
+  }
 
   // functions for razorpay source details
 
@@ -267,7 +276,7 @@ function Razorpay() {
       currency: "INR",
       name: "Rajesh Corp.",
       description: "Test Transaction",
-      order_id: "order_JYMqq259ELb3UR",
+      order_id: "order_JYbpi05Kxzem9m",
       handler: async function (response) {
         const data = {
           //orderCreationId: order_id,
@@ -301,7 +310,7 @@ function Razorpay() {
     <>
       {/* Home Button */}
 
-      <div className="cartHomeRP">
+      <div className="cartHomeRPP">
         <button class="btn btn-outline-secondary" onClick={() => Navigate('/')} >  Home </button>
       </div>
 
@@ -390,13 +399,17 @@ function Dashboard() {
   // using useEffect to get data on page load
 
   useEffect(
-    async () => {
-      var response = await axios.get('http://localhost:3000/product/gettotalproductcount')
-      var res = response.data.map((row) => {
-        setcartvalue(row.Totalcount)
-      })
+    () => {
+      cartcount();
     }, [])
 
+
+  var cartcount = async () => {
+    var response = await axios.get('http://localhost:3000/product/gettotalproductcount')
+    var res = response.data.map((row) => {
+      setcartvalue(row.Totalcount)
+    })
+  }
 
   // below function used for posting datas during Add to cart button pressed
 
@@ -407,19 +420,15 @@ function Dashboard() {
 
     if (e.target.name === 'Atomos') {
 
-      // getting quantity value
-
-      var input = document.querySelector('#input1').value
-
       // Posting datas on database
 
       var post = await axios.post('http://localhost:3000/product/post', {
         ProductName: "Shogun Monitor",
         Productcompany: "Atomos",
         Productprice: 50000,
-        Quantity: input,
+        Quantity: "",
         Hours: "",
-        TotalAMount: input * 50000
+        TotalAMount: ""
       })
 
       // Pushing fetched data to Product Array
@@ -444,9 +453,6 @@ function Dashboard() {
 
     else if (e.target.name === 'light') {
 
-      // getting quantity value
-
-      var input = document.querySelector('#input2').value
 
       // Posting datas on database
 
@@ -454,9 +460,9 @@ function Dashboard() {
         ProductName: "Baby Light",
         Productcompany: "Canon",
         Productprice: 5000,
-        Quantity: input,
+        Quantity: "",
         Hours: "",
-        TotalAMount: input * 5000
+        TotalAMount: ""
       })
 
       // Pushing fetched data to Product Array
@@ -482,19 +488,15 @@ function Dashboard() {
 
     else if (e.target.name === 'stand') {
 
-      // getting quantity value
-
-      var input = document.querySelector('#input3').value
-
       // Posting datas on database
 
       var post = await axios.post('http://localhost:3000/product/post', {
         ProductName: "Backdrop Stand",
         Productcompany: "Epson",
         Productprice: 10000,
-        Quantity: input,
+        Quantity: "",
         Hours: "",
-        TotalAMount: input * 10000
+        TotalAMount: ""
       })
 
       // Pushing fetched data to Product Array
@@ -519,9 +521,6 @@ function Dashboard() {
 
     else if (e.target.name === 'monopad') {
 
-      // getting quantity value
-
-      var input = document.querySelector('#input4').value
 
       // Posting datas on database
 
@@ -529,9 +528,9 @@ function Dashboard() {
         ProductName: "Monopad",
         Productcompany: "Benro",
         Productprice: 2000,
-        Quantity: input,
+        Quantity: "",
         Hours: "",
-        TotalAMount: input * 2000
+        TotalAMount: ""
       })
 
       // Pushing fetched data to Product Array
@@ -557,19 +556,15 @@ function Dashboard() {
 
     else if (e.target.name === 'tripod') {
 
-      // getting quantity value
-
-      var input = document.querySelector('#input5').value
-
       // Posting datas on database
 
       var post = await axios.post('http://localhost:3000/product/post', {
         ProductName: "Tripod",
         Productcompany: "Benro",
         Productprice: 5000,
-        Quantity: input,
+        Quantity: "",
         Hours: "",
-        TotalAMount: input * 5000
+        TotalAMount: ""
       })
 
       // Pushing fetched data to Product Array
@@ -594,19 +589,15 @@ function Dashboard() {
 
     else if (e.target.name === 'camera') {
 
-      // getting quantity value
-
-      var input = document.querySelector('#input6').value
-
       // Posting datas on database
 
       var post = await axios.post('http://localhost:3000/product/post', {
         ProductName: "Camera",
         Productcompany: "canon",
         Productprice: 45000,
-        Quantity: input,
+        Quantity: "",
         Hours: "",
-        TotalAMount: input * 45000
+        TotalAMount: ""
       })
 
       // Pushing fetched data to Product Array
@@ -720,9 +711,6 @@ function Dashboard() {
                       <div className="fontstyle4">
                         <span>7 hours</span> <FaRupeeSign /> 1500
                       </div><br></br>
-                      <div>
-                        <input type="number" id="input1" placeholder="Quantity"></input>
-                      </div>
                     </Typography>
                   </CardContent>
 
@@ -753,9 +741,6 @@ function Dashboard() {
                       <div className="fontstyle4">
                         <span>7 Hours</span> <FaRupeeSign /> 500
                       </div><br></br>
-                      <div>
-                        <input type="number" id="input2" placeholder="Quantity"></input> <br></br>
-                      </div>
                     </Typography>
                   </CardContent>
 
@@ -787,9 +772,6 @@ function Dashboard() {
                       <div className="fontstyle4">
                         7 Hours - <FaRupeeSign /> 500
                       </div><br></br>
-                      <div>
-                        <input type="number" id="input3" placeholder="Quantity"></input> <br></br>
-                      </div>
                     </Typography>
                   </CardContent>
 
@@ -805,7 +787,6 @@ function Dashboard() {
         </div>
       </div>
       <br></br>
-
 
       {/*  Benro Monopad card */}
 
@@ -833,9 +814,6 @@ function Dashboard() {
                       <div className="fontstyle4">
                         <span>7 hours</span> <FaRupeeSign /> 150
                       </div><br></br>
-                      <div>
-                        <input type="number" id="input4" placeholder="Quantity"></input> <br></br>
-                      </div>
                     </Typography>
                   </CardContent>
 
@@ -867,9 +845,6 @@ function Dashboard() {
                       <div className="fontstyle4">
                         <span>7 hours</span> <FaRupeeSign /> 300
                       </div><br></br>
-                      <div>
-                        <input type="number" id="input5" placeholder="Quantity"></input> <br></br>
-                      </div>
                     </Typography>
                   </CardContent>
 
@@ -899,9 +874,6 @@ function Dashboard() {
                       <div className="fontstyle4">
                         7 Hours - <FaRupeeSign /> 2000
                       </div><br></br>
-                      <div>
-                        <input type="number" id="input6" placeholder="Quantity"></input> <br></br>
-                      </div>
                     </Typography>
                   </CardContent>
                   <CardActions >
@@ -924,7 +896,7 @@ function Dashboard() {
           <Toolbar style={{ height: "150px" }} className="color">
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} >
               <div className="fontstyle2">
-                Copyright © Your Website 2022
+                Copyright © Product Rental Website 2022
               </div>
             </Typography>
           </Toolbar>
@@ -962,11 +934,15 @@ function Cart() {
   // using useEffect to load datas on page load
 
   useEffect(
-    async () => {
-      var response = await axios.get('http://localhost:3000/product/get')
-      setarray({ Product: response.data })
-      console.log(response.data)
+    () => {
+      res();
     }, [])
+
+  const res = async () => {
+    var response = await axios.get('http://localhost:3000/product/get');
+    setarray({ Product: response.data })
+
+  }
 
   // validate functions used by formik for validation & error throwing purpose
 
@@ -997,10 +973,11 @@ function Cart() {
     // if user entered data on text field and by clicking Add/Edit button following else condtion works to update data on database
 
     else {
+
       //filtering datas to get datas on which row user click Add/Edit button -
 
       var selectedData = await array.Product.filter((row) => row._id == _id)[0]
-      
+
 
       //Update
 
@@ -1020,10 +997,6 @@ function Cart() {
       await setarray({ Product: response.data })
       setformvalue({ Hours: '', Quantity: '', FromDate: "", ToDate: "" })
 
-      // to activate disabled checkout button 
-
-      setdisablechkout(false)
-
     }
   }
 
@@ -1039,15 +1012,10 @@ function Cart() {
   // following funcitons used to setform values 
 
   const quantity = (e) => {
-    setformvalue({ Quantity: e.target.value })
-  }
 
-  const FromDate = (e) => {
-    setformvalue({ FromDate: e.target.value })
-  }
+    // to activate disabled checkout button 
 
-  const ToDate = (e) => {
-    setformvalue({ ToDate: e.target.value })
+    setdisablechkout(false)
   }
 
   // formik submit function
@@ -1055,6 +1023,7 @@ function Cart() {
   const submit = (e) => {
     e.preventDefault()
   }
+
 
   return (
     <>
@@ -1109,7 +1078,7 @@ function Cart() {
               <label>Quantity</label> &nbsp;
               <div className='input1' style={{ display: 'inline-block' }}>
                 <div>
-                  <input placeholder="Please enter Quantity" id="ctextQ" type="text"
+                  <input placeholder="Please enter Quantity" id="ctextQ" type="text" onClick={(e) => quantity(e)}
                     name="Quantity"
                     value={values.Quantity}
                     onChange={handleChange}
@@ -1171,7 +1140,7 @@ function Cart() {
       </Formik>
 
       <div>
-        <p className="p">* Please Enter Hours & Quantity After Click Add/Edit Button in Table To Add Data</p>
+        <p className="p">* Please Enter Quantity & Date, After Click Add/Edit Button in Table To Add Data</p>
       </div>
 
       <div>
